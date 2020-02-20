@@ -19,9 +19,7 @@
     "dependencies": {
         "config": "^3.2.5",
         "crypto": "^1.0.1",
-        "dependencies": "0.0.1",
         "express": "^4.17.1",
-        "peer": "^0.2.10",
         "querystring": "^0.2.0"
     },
     "devDependencies": {
