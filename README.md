@@ -1,5 +1,5 @@
 # Grab Zuora Settings
-This is a really simple script which automates the pulling of Zuora settings through their publicly available API. It then uses the data retrieved to output report files for easy consumption. 
+This is a really simple one file script which automates the pulling of Zuora settings through their publicly available API. It then uses the data retrieved to output report files for easy consumption. 
 
 ## How It Works
 The following steps are executed:
@@ -22,4 +22,15 @@ To succesfully run, the following steps need to be followed:
 2.) Copy example.json contents into default.json
 
 3.) Update all values in default.json with values specific to your tenant (if you don't know how to generate a Zuora ID / Secret pair, please google it)
+
+## Output
+Once it's ran sucessfully to completion, two reports should have been created in the `./reports` directory.
+
+1.) Zuora_Settings_Report.json
+
+This report contains all settings values successfully grabbed as well as the API path used to grab them.
+
+2.) Zuora_Error_Messages_Report.json
+
+This report contains all error messages from setting values unsuccesfully grabbed as well as the API path used to grab them. 
 
