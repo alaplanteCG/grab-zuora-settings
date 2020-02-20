@@ -18,6 +18,8 @@ The following steps are executed:
 To succesfully run, the following steps need to be followed:
 
 1.) Under config directory, create "default.json"
+
 2.) Copy example.json contents into default.json
+
 3.) Update all values in default.json with values specific to your tenant (if you don't know how to generate a Zuora ID / Secret pair, please google it)
 
