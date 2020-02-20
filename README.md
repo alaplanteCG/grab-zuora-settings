@@ -2,7 +2,7 @@
 This is a really simple one file script which automates the pulling of Zuora settings through their publicly available API. It then uses the data retrieved to output report files for easy consumption. 
 
 ## How It Works
-The following steps are executed:
+**The following steps are executed:**
 
 1.) Retrieve OAuth token from Zuora using Client ID && Client Secret for API Authentication
 
@@ -15,7 +15,7 @@ The following steps are executed:
 5.) Creating Settings Report && Error Report using data from step 4. 
 
 ## Configuration
-To succesfully run, the following steps need to be followed:
+**To succesfully run, the following steps need to be followed:**
 
 1.) Under config directory, create "default.json"
 
