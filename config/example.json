@@ -1,0 +1,6 @@
+{
+    "Zuora": {
+        "clientID": "replace me",
+        "clientSecret": "replace me"
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "name": "grab-zuora-settings",
+    "version": "0.1.0",
+    "description": "This script will grab all Zuora setting values for a specific tenant.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon ./index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alaplanteCG/grab-zuora-settings.git"
+    },
+    "author": "Adam LaPlante",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/alaplanteCG/grab-zuora-settings/issues"
+    },
+    "homepage": "https://github.com/alaplanteCG/grab-zuora-settings#readme",
+    "dependencies": {
+        "config": "^3.2.5",
+        "crypto": "^1.0.1",
+        "dependencies": "0.0.1",
+        "express": "^4.17.1",
+        "peer": "^0.2.10",
+        "querystring": "^0.2.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.2",
+        "prettier": "^1.19.1",
+        "eslint": "^4.18.2",
+        "eslint-config-cargurus-base": "^11.2.1",
+        "eslint-config-prettier": "^6.10.0",
+        "eslint-plugin-import": "^2.20.1",
+        "eslint-plugin-prettier": "^3.1.2"
+    }
+}

@@ -1,0 +1,5 @@
+node_modules
+.DS_Store
+reports/Zuora_Error_Messages_Report.json
+reports/Zuora_Settings_Report.json
+config/default.json
