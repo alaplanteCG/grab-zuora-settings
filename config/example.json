@@ -1,6 +1,7 @@
 {
     "Zuora": {
         "clientID": "replace me",
-        "clientSecret": "replace me"
+        "clientSecret": "replace me",
+        "hostName": "rest.zuora.com"
     }
 }

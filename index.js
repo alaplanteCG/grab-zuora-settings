@@ -33,7 +33,7 @@ let reportCount = 0;
  */
 function getAccessToken(id, secret, callback) {
     const options = {
-        hostname: "rest.zuora.com",
+        hostname: config.Zuora.hostName,
         path: "/oauth/token",
         method: "POST",
         headers: {
@@ -82,7 +82,7 @@ function getAccessToken(id, secret, callback) {
 
 function getSettingsSchema(token, callback) {
     const options = {
-        hostname: "rest.zuora.com",
+        hostname: config.Zuora.hostName,
         path: "/settings/listing",
         method: "GET",
         headers: {
@@ -124,7 +124,7 @@ function getSettingsSchema(token, callback) {
 
 async function getSettingsData(token, pathUrl, callback) {
     const options = {
-        hostname: "rest.zuora.com",
+        hostname: config.Zuora.hostName,
         path: pathUrl,
         method: "GET",
         headers: {
