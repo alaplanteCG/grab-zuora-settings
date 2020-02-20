@@ -26,11 +26,11 @@ To succesfully run, the following steps need to be followed:
 ## Output
 Once it's ran sucessfully to completion, two reports should have been created in the `./reports` directory.
 
-1.) Zuora_Settings_Report.json
+**1.) Zuora_Settings_Report.json**
 
 This report contains all settings values successfully grabbed as well as the API path used to grab them.
 
-2.) Zuora_Error_Messages_Report.json
+**2.) Zuora_Error_Messages_Report.json**
 
 This report contains all error messages from setting values unsuccesfully grabbed as well as the API path used to grab them. 
 
