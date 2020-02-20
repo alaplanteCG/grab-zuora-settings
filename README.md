@@ -30,7 +30,36 @@ Once it's ran sucessfully to completion, two reports should have been created in
 
 This report contains all settings values successfully grabbed as well as the API path used to grab them.
 
+```
+[
+    {
+        "Zuora Path": "/settings/charge-types",
+        "Returned Values": {
+            "chargeTypes": [
+                "OneTime",
+                "Recurring",
+                "Usage"
+            ]
+        }
+    },
+]
+```
+
 **2.) Zuora_Error_Messages_Report.json**
 
 This report contains all error messages from setting values unsuccesfully grabbed as well as the API path used to grab them. 
 
+```
+[
+    {
+        "Zuora Path": "/settings/data-access-info",
+        "Error Message": {
+            "errorCode": "REMOTE_HTTP_CLIENT_ERROR",
+            "remoteHttpStatus": 403,
+            "messages": [
+                "   {\"error\":\"403Forbidden\",\"processId\":\"05E67E7D1CB44929\",\"message\":\"security.error.noPermission\"}"
+            ]
+        }
+    }
+]
+```
