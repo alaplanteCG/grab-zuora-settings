@@ -15,7 +15,6 @@ const config = require("config");
 
 /**
  * App Variables
- *
  */
 
 const settingsReport = [];
@@ -31,6 +30,7 @@ let reportCount = 0;
  * @param {string} secret Zuora client secret
  * @param {function} callback callback function
  */
+
 function getAccessToken(id, secret, callback) {
     const options = {
         hostname: config.Zuora.hostName,
@@ -47,15 +47,18 @@ function getAccessToken(id, secret, callback) {
         grant_type: "client_credentials",
     });
 
+    // make https request
     const req = https.request(options, res => {
         console.log(`statusCode: ${res.statusCode}`);
 
         let dataObject = "";
 
+        // append received data chunk to data object
         res.on("data", chunk => {
             dataObject += chunk;
         });
 
+        // on request end, return token
         res.on("end", () => {
             // console.log(JSON.parse(dataObject));
             const token = JSON.parse(dataObject).access_token;
@@ -81,6 +84,7 @@ function getAccessToken(id, secret, callback) {
  */
 
 function getSettingsSchema(token, callback) {
+    // format request options
     const options = {
         hostname: config.Zuora.hostName,
         path: "/settings/listing",
@@ -91,15 +95,18 @@ function getSettingsSchema(token, callback) {
         },
     };
 
+    // make https request
     const req = https.request(options, res => {
         console.log(`statusCode: ${res.statusCode}`);
 
         let dataObject = "";
 
+        // append received data chunk to data object
         res.on("data", chunk => {
             dataObject += chunk;
         });
 
+        // on request end, return data object
         res.on("end", () => {
             // console.log(JSON.parse(dataObject));
             callback(JSON.parse(dataObject));
@@ -133,28 +140,31 @@ async function getSettingsData(token, pathUrl, callback) {
         },
     };
 
-    const req = https
-        .request(options, res => {
-            console.log(`statusCode: ${res.statusCode}`);
+    // make https request
+    req = https.request(options, res => {
+        console.log(`statusCode: ${res.statusCode}`);
 
-            let dataObject = "";
+        let dataObject = "";
 
-            res.on("data", chunk => {
-                dataObject += chunk;
-            });
-
-            res.on("end", () => {
-                completedRequests += 1;
-                callback({
-                    statusCode: res.statusCode,
-                    body: JSON.parse(dataObject),
-                });
-            });
-        })
-        .on("error", error => {
-            console.log(`Error : ${error.message}`);
-            callback(error);
+        // append received data chunk to data object
+        res.on("data", chunk => {
+            dataObject += chunk;
         });
+
+        // on request end, return status code and data object
+        res.on("end", () => {
+            completedRequests += 1;
+            callback({
+                statusCode: res.statusCode,
+                body: JSON.parse(dataObject),
+            });
+        });
+    });
+
+    req.on("error", error => {
+        console.log(`Error : ${error.message}`);
+        callback(error);
+    });
 
     req.end();
 }
@@ -162,6 +172,7 @@ async function getSettingsData(token, pathUrl, callback) {
 /**
  * Increments created report count.
  */
+
 const incrementReportCount = () => (reportCount += 1);
 
 /**
@@ -192,6 +203,7 @@ async function createReportFile(report, name) {
 /**
  * Called when all API requests have finished. Controls the creation of reports.
  */
+
 async function complete() {
     console.log("Creating Reports");
     await createReportFile(
@@ -209,34 +221,46 @@ async function complete() {
  */
 
 async function buildSettingsReport() {
+    // retrieve zuora access token
     getAccessToken(
         config.Zuora.clientID,
         config.Zuora.clientSecret,
         async function(token) {
+            // retrieve zuora settings schema
             getSettingsSchema(token, async function(settingsObject) {
                 const values = Object.values(settingsObject.settings);
                 const keys = Object.keys(settingsObject.settings);
+                // loop through keys in settings schema
                 for (let i = 0; i < keys.length; i += 1) {
                     const httpOperations = values[i].httpOperations;
+                    // loop through http operations retrieved from settings schema
                     for (let j = 0; j < httpOperations.length; j += 1) {
+                        // if the operation is a get call with no required parameters, store path for use
                         if (
                             httpOperations[j].method === "GET" &&
                             httpOperations[j].parameters.length === 0
                         ) {
                             const path = httpOperations[j].url;
+                            // increment request count
                             requests += 1;
+
+                            // call path to retrieve settings data
                             await getSettingsData(token, path, function(data) {
+                                // if call is successful, push retrieved data to settings report
                                 if (data.statusCode === 200) {
                                     settingsReport.push({
                                         "Zuora Path": path,
                                         "Returned Values": data.body,
                                     });
                                 } else {
+                                    // if call is not successful, push error to error report
                                     errorsReport.push({
                                         "Zuora Path": path,
                                         "Error Message": data.body,
                                     });
                                 }
+
+                                // once all requests are completed, generate reports
                                 if (completedRequests === requests) {
                                     complete();
                                 }
@@ -252,6 +276,7 @@ async function buildSettingsReport() {
 /**
  * Main function runs on execution.
  */
+
 async function run() {
     await buildSettingsReport();
 }
